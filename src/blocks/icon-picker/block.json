@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ziorwebdev/icon-picker",
+	"title": "Icon Picker",
+	"category": "widgets",
+	"description": "Display an icon.",
+	"textdomain": "default",
+	"attributes": {
+		"url": {
+			"type": "string",
+			"role": "content"
+		},
+		"service": {
+			"type": "string"
+		},
+		"label": {
+			"type": "string",
+			"role": "content"
+		},
+		"rel": {
+			"type": "string"
+		}
+	},
+	"usesContext": [
+		"openInNewTab",
+		"showLabels",
+		"iconColor",
+		"iconColorValue",
+		"iconBackgroundColor",
+		"iconBackgroundColorValue"
+	],
+	"supports": {
+		"reusable": false,
+		"html": false,
+		"interactivity": {
+			"clientNavigation": true
+		}
+	},
+	"editorStyle": "wp-block-icon-picker-editor"
+}
