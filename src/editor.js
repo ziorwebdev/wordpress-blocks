@@ -1,0 +1,1 @@
+import "./blocks/icon-picker/index.js";

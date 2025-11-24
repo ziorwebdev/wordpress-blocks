@@ -1,0 +1,24 @@
+{
+    "name": "ziorwebdev/wordpress-blocks",
+    "version": "1.0.0",
+    "description": "Custom WordPress blocks",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "ZiorWebDev\\WordPressBlocks\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "require": {
+        "php": "^8.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ZIORWeb.Dev",
+            "email": "devs@ziorweb.dev"
+        }
+    ]
+}
