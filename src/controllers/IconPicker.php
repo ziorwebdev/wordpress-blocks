@@ -7,13 +7,33 @@
 
 namespace ZiorWebDev\WordPressBlocks\Controllers;
 
+use ZiorWebDev\WordPressBlocks\BaseBlock;
 /**
  * Icon Picker class
  *
  * @package ZiorWebDev\WordPressBlocks
  * @since 1.0.0
  */
-class IconPicker {
+class IconPicker extends BaseBlock {
+
+	/**
+	 * Block name
+	 */
+	protected $block_name = 'ziorwebdev-wordpress-blocks/icon-picker';
+
+	/**
+	 * Block attributes
+	 */
+	protected $attributes = array(
+		'openInNewTab' => array(
+			'type'    => 'boolean',
+			'default' => true,
+		),
+		'templateLock' => array(
+			'type'    => 'string',
+			'default' => 'all',
+		),
+	);
 
 	/**
 	 * Singleton instance of the Plugin class.
@@ -21,14 +41,6 @@ class IconPicker {
 	 * @var Load
 	 */
 	protected static $instance;
-
-	/**
-	 * Class constructor.
-	 * 
-	 */
-	public function __construct() {
-		add_action( 'init', 'register_block_icon_picker' );
-	}
 
 	/**
 	 * Renders the `ziorwebdev/icon-picker` block on server.
@@ -41,14 +53,14 @@ class IconPicker {
 	 *
 	 * @return string Rendered HTML of the referenced block.
 	 */
-	public function render_block_icon_picker( $attributes, $content, $block ) {
+	public function render( $attributes, $content, $block ) {
 		$open_in_new_tab = isset( $block->context['openInNewTab'] ) ? $block->context['openInNewTab'] : false;
 
 		$text = ! empty( $attributes['label'] ) ? trim( $attributes['label'] ) : '';
 
 		$service     = isset( $attributes['service'] ) ? $attributes['service'] : 'Icon';
 		$url         = isset( $attributes['url'] ) ? $attributes['url'] : false;
-		$text        = $text ? $text : block_icon_picker_get_name( $service );
+		$text        = $text ? $text : get_name( $service );
 		$rel         = isset( $attributes['rel'] ) ? $attributes['rel'] : '';
 		$show_labels = array_key_exists( 'showLabels', $block->context ) ? $block->context['showLabels'] : false;
 
@@ -73,11 +85,11 @@ class IconPicker {
 			$url = 'https://' . $url;
 		}
 
-		$icon               = block_icon_picker_get_icon( $service );
+		$icon               = get_icon( $service );
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
 				'class' => 'wp-social-link wp-social-link-' . $service . block_icon_picker_get_color_classes( $block->context ),
-				'style' => block_icon_picker_get_color_styles( $block->context ),
+				'style' => get_color_styles( $block->context ),
 			)
 		);
 
@@ -99,20 +111,6 @@ class IconPicker {
 	}
 
 	/**
-	 * Registers the `ziorwebdev/icon-picker` blocks.
-	 *
-	 * @since 5.4.0
-	 */
-	public function register_block_icon_picker() {
-		register_block_type_from_metadata(
-			__DIR__ . '/social-link',
-			array(
-				'render_callback' => 'render_block_icon_picker',
-			)
-		);
-	}
-
-	/**
 	 * Returns the SVG for social link.
 	 *
 	 * @since 5.4.0
@@ -121,8 +119,8 @@ class IconPicker {
 	 *
 	 * @return string SVG Element for service icon.
 	 */
-	public function block_icon_picker_get_icon( $service ) {
-		$services = block_icon_picker_services();
+	public function get_icon( $service ) {
+		$services = get_services();
 		if ( isset( $services[ $service ] ) && isset( $services[ $service ]['icon'] ) ) {
 			return $services[ $service ]['icon'];
 		}
@@ -139,8 +137,8 @@ class IconPicker {
 	 *
 	 * @return string Brand label.
 	 */
-	public function block_icon_picker_get_name( $service ) {
-		$services = block_icon_picker_services();
+	public function get_name( $service ) {
+		$services = get_services();
 		if ( isset( $services[ $service ] ) && isset( $services[ $service ]['name'] ) ) {
 			return $services[ $service ]['name'];
 		}
@@ -158,7 +156,7 @@ class IconPicker {
 	 *
 	 * @return array|string
 	 */
-	public function block_icon_picker_services( $service = '', $field = '' ) {
+	public function get_services( $service = '', $field = '' ) {
 		$services_data = array(
 			'fivehundredpx' => array(
 				'name' => _x( '500px', 'social link block variation name' ),
@@ -393,7 +391,7 @@ class IconPicker {
 	 *
 	 * @return string Inline CSS styles for link's icon and background colors.
 	 */
-	public function block_icon_picker_get_color_styles( $context ) {
+	public function get_color_styles( $context ) {
 		$styles = array();
 
 		if ( array_key_exists( 'iconColorValue', $context ) ) {

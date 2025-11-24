@@ -11,7 +11,7 @@ export default {
     devtool: isProduction ? false : "source-map",
 
     entry: {
-        "blocks/editor": "./src/editor.js"
+        "blocks/editor": "./src/blocks/editor.js"
     },
 
     externals: { jquery: "jQuery" },

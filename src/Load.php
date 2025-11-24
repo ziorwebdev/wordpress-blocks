@@ -37,7 +37,8 @@ final class Load {
 	 * 
 	 */
 	public function __construct() {
-
+		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_blocks_script' ) );
+		error_log( 'final class Load' );
 		Controllers\IconPicker::get_instance();
 	}
 
