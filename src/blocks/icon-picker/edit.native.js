@@ -21,15 +21,15 @@ import styles from './editor.scss';
 // Template contains the links that show when start.
 const TEMPLATE = [
 	[
-		'core/social-link-wordpress',
+		'ziorwebdev/icon-wordpress',
 		{ service: 'wordpress', url: 'https://wordpress.org' },
 	],
-	[ 'core/social-link-facebook', { service: 'facebook' } ],
-	[ 'core/social-link-twitter', { service: 'twitter' } ],
-	[ 'core/social-link-instagram', { service: 'instagram' } ],
+	[ 'ziorwebdev/icon-facebook', { service: 'facebook' } ],
+	[ 'ziorwebdev/icon-twitter', { service: 'twitter' } ],
+	[ 'ziorwebdev/icon-instagram', { service: 'instagram' } ],
 ];
 
-function SocialLinksEdit( {
+function IconPickerEdit( {
 	shouldDelete,
 	onDelete,
 	isSelected,
@@ -144,4 +144,4 @@ export default compose(
 			},
 		};
 	} )
-)( SocialLinksEdit );
+)( IconPickerEdit );

@@ -11,7 +11,7 @@ const { ToolbarButton, Icon } = wp.components;
 const { Inserter } = wp.blockEditor;
 
 // wp.icons
-const { plus } = wp.icons;
+import { brush } from '@wordpress/icons';
 
 // wp.i18n
 const { __ } = wp.i18n;
@@ -28,7 +28,7 @@ const { __ } = wp.i18n;
 export default function ToolbarBlockInserter({
     rootClientId,
     label = __('Add block'),
-    icon = plus,
+    icon = brush,
     onSelectOrClose,
 }) {
     const buttonRef = useRef();
@@ -37,8 +37,8 @@ export default function ToolbarBlockInserter({
         <Inserter
             rootClientId={rootClientId}
             position="bottom center"
-            __experimentalIsQuick
-            isAppender
+            __experimentalIsQuick={true}
+            isAppender={ true }
             anchorRef={buttonRef}
             onSelectOrClose={onSelectOrClose}
             renderToggle={({ onToggle, isOpen, disabled }) => (
@@ -51,6 +51,19 @@ export default function ToolbarBlockInserter({
                     ref={buttonRef}
                 />
             )}
+            onSelect={( block ) => {
+                // Remove existing icon blocks
+                console.log("ICON SELECTED");
+                const innerBlocks = wp.data.select('core/block-editor').getBlocks(rootClientId);
+                innerBlocks.forEach((b) => {
+                    if (b.name === 'ziorwebdev/icon') {
+                        wp.data.dispatch('core/block-editor').removeBlock(b.clientId);
+                    }
+                });
+
+                // Insert the new block
+                wp.data.dispatch('core/block-editor').insertBlock(block, undefined, rootClientId);
+            }}
         />
     );
 }

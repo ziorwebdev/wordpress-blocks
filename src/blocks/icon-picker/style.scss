@@ -1,5 +1,5 @@
-@use "../icon/socials-with-bg.scss" as *;
-@use "../icon/socials-without-bg.scss" as *;
+@use "../icon/icon-with-bg.scss" as *;
+@use "../icon/icon-without-bg.scss" as *;
 
 .wp-block-ziorwebdev-icon-picker {
 	// This block has customizable padding, border-box makes that more predictable.
@@ -115,7 +115,7 @@
 // Provide colors for a range of icons.
 :where(.wp-block-ziorwebdev-icon-picker:not(.is-style-logos-only)) {
 	// Generic items such as mail, feed, etc.
-	@include socials-with-bg;
+	@include icon-with-bg;
 }
 
 // Treatment for logos only style.
@@ -133,7 +133,7 @@
 		}
 	}
 
-	@include socials-without-bg;
+	@include icon-without-bg;
 }
 
 // Treatment for pill shape style.
@@ -144,7 +144,7 @@
 }
 
 // The following rules have their selector specificity set to 0-1-0 to
-// facilitate theme.json styling of the inner social-link block padding.
+// facilitate theme.json styling of the inner icon block padding.
 :root :where(.wp-block-ziorwebdev-icon-picker .wp-ziorwebdev-icon a) {
 	padding: 0.25em;
 }

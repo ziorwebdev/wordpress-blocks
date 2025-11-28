@@ -25,7 +25,7 @@ import { store as blocksStore } from '@wordpress/blocks';
 /**
  * Internal dependencies
  */
-import { getSocialService } from './social-list';
+import { getIconService } from './icon-list';
 import styles from './editor.scss';
 
 const DEFAULT_ACTIVE_ICON_STYLES = {
@@ -50,7 +50,7 @@ const linkSettingsOptions = {
 	},
 };
 
-const SocialLinkEdit = ( {
+const IconLinkEdit = ( {
 	attributes,
 	setAttributes,
 	isSelected,
@@ -67,9 +67,9 @@ const SocialLinkEdit = ( {
 		DEFAULT_ACTIVE_ICON_STYLES;
 	const animatedValue = useRef( new Animated.Value( 0 ) ).current;
 
-	const { icon, label: socialLinkName } = getSocialService( activeVariation );
+	const { icon, label: iconLinkName } = getIconService( activeVariation );
 
-	// When new social icon is added link sheet is opened automatically.
+	// When new icon icon is added link sheet is opened automatically.
 	useEffect( () => {
 		if ( isSelected && ! url ) {
 			setIsLinkSheetVisible( true );
@@ -129,14 +129,14 @@ const SocialLinkEdit = ( {
 
 	const accessibilityHint = url
 		? sprintf(
-				// translators: %s: social link name e.g: "Instagram".
+				// translators: %s: icon link name e.g: "Instagram".
 				__( '%s has URL set' ),
-				socialLinkName
+				iconLinkName
 		  )
 		: sprintf(
-				// translators: %s: social link name e.g: "Instagram".
+				// translators: %s: icon link name e.g: "Instagram".
 				__( '%s has no URL set' ),
-				socialLinkName
+				iconLinkName
 		  );
 
 	return (
@@ -147,9 +147,9 @@ const SocialLinkEdit = ( {
 						<ToolbarGroup>
 							<ToolbarButton
 								title={ sprintf(
-									// translators: %s: social link name e.g: "Instagram".
+									// translators: %s: icon link name e.g: "Instagram".
 									__( 'Add link to %s' ),
-									socialLinkName
+									iconLinkName
 								) }
 								icon={ link }
 								onClick={ onOpenSettingsSheet }
@@ -175,9 +175,9 @@ const SocialLinkEdit = ( {
 				onPress={ onIconPress }
 				accessibilityRole="button"
 				accessibilityLabel={ sprintf(
-					// translators: %s: social link name e.g: "Instagram".
-					__( '%s social icon' ),
-					socialLinkName
+					// translators: %s: icon link name e.g: "Instagram".
+					__( '%s icon' ),
+					iconLinkName
 				) }
 				accessibilityHint={ accessibilityHint }
 			>
@@ -216,4 +216,4 @@ export default compose( [
 				: undefined,
 		};
 	} ),
-] )( SocialLinkEdit );
+] )( IconLinkEdit );

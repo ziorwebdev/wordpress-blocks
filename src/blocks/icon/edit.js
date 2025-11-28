@@ -33,7 +33,7 @@ const {
     Dropdown,
     TextControl,
     ToolbarButton,
-    ExternalLink,
+	ExternalLink,
     __experimentalToolsPanel: ToolsPanel,
     __experimentalToolsPanelItem: ToolsPanelItem,
     __experimentalInputControlSuffixWrapper: InputControlSuffixWrapper,
@@ -54,10 +54,10 @@ const { store: blocksStore } = wp.blocks;
 /**
  * Internal dependencies
  */
-import { getSocialService } from './social-list';
+import { getIconService } from './icon-list';
 import { useToolsPanelDropdownMenuProps } from '../../utils/hooks';
 
-const SocialLinkURLPopover = ( {
+const IconLinkURLPopover = ( {
 	url,
 	setAttributes,
 	setPopover,
@@ -68,7 +68,7 @@ const SocialLinkURLPopover = ( {
 	return (
 		<URLPopover
 			anchor={ popoverAnchor }
-			aria-label={ __( 'Edit social link' ) }
+			aria-label={ __( 'Edit icon link' ) }
 			onClose={ () => {
 				setPopover( false );
 				popoverAnchor?.focus();
@@ -121,7 +121,7 @@ const SocialLinkURLPopover = ( {
 	);
 };
 
-const SocialLinkEdit = ( {
+const IconLinkEdit = ( {
 	attributes,
 	context,
 	isSelected,
@@ -168,12 +168,12 @@ const SocialLinkEdit = ( {
 		[ name, attributes ]
 	);
 
-	const { icon, label: socialLinkName } = getSocialService( activeVariation );
+	const { icon, label: iconLinkName } = getIconService( activeVariation );
 	// The initial label (ie. the link text) is an empty string.
 	// We want to prevent empty links so that the link text always fallbacks to
-	// the social name, even when users enter and save an empty string or only
-	// spaces. The PHP render callback fallbacks to the social name as well.
-	const socialLinkText = label.trim() === '' ? socialLinkName : label;
+	// the icon name, even when users enter and save an empty string or only
+	// spaces. The PHP render callback fallbacks to the icon name as well.
+	const iconLinkText = label.trim() === '' ? iconLinkName : label;
 
 	const ref = useRef();
 	const blockProps = useBlockProps( {
@@ -190,11 +190,12 @@ const SocialLinkEdit = ( {
 
 	return (
 		<>
+			<BlockControls>
 			{ isContentOnlyMode && showLabels && (
 				// Add an extra control to modify the label attribute when content only mode is active.
 				// With content only mode active, the inspector is hidden, so users need another way
 				// to edit this attribute.
-				<BlockControls group="other">
+				
 					<Dropdown
 						popoverProps={ { placement: 'bottom-start' } }
 						renderToggle={ ( { isOpen, onToggle } ) => (
@@ -219,12 +220,13 @@ const SocialLinkEdit = ( {
 								onChange={ ( value ) =>
 									setAttributes( { label: value } )
 								}
-								placeholder={ socialLinkName }
+								placeholder={ iconLinkName }
 							/>
 						) }
 					/>
-				</BlockControls>
-			) }
+				
+				)}
+			</BlockControls>
 			<InspectorControls>
 				<ToolsPanel
 					label={ __( 'Settings' ) }
@@ -252,7 +254,7 @@ const SocialLinkEdit = ( {
 							onChange={ ( value ) =>
 								setAttributes( { label: value } )
 							}
-							placeholder={ socialLinkName }
+							placeholder={ iconLinkName }
 						/>
 					</ToolsPanelItem>
 				</ToolsPanel>
@@ -303,12 +305,12 @@ const SocialLinkEdit = ( {
 							'screen-reader-text': ! showLabels,
 						} ) }
 					>
-						{ socialLinkText }
+						{ iconLinkText }
 					</span>
 				</button>
 				{ /* eslint-enable jsx-a11y/no-redundant-roles */ }
 				{ isSelected && showURLPopover && (
-					<SocialLinkURLPopover
+					<IconLinkURLPopover
 						url={ url }
 						setAttributes={ setAttributes }
 						setPopover={ setPopover }
@@ -321,4 +323,4 @@ const SocialLinkEdit = ( {
 	);
 };
 
-export default SocialLinkEdit;
+export default IconLinkEdit;

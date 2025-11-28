@@ -3,11 +3,11 @@
 	"apiVersion": 3,
 	"name": "ziorwebdev/icon-picker",
 	"title": "Icon Picker",
-	"category": "ziorwebdev",
+	"category": "widgets",
 	"allowedBlocks": [
 		"ziorwebdev/icon"
 	],
-	"description": "Display icons linking to your social profiles or sites.",
+	"description": "Display icon.",
 	"keywords": [
 		"links"
 	],

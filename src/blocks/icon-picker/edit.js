@@ -49,6 +49,7 @@ const { ToolbarButton, ToolbarGroup } = wp.components;
  */
 import { useToolsPanelDropdownMenuProps } from '../../utils/hooks';
 import ToolbarBlockInserter from '../../components/icon-inserter';
+import { useReplaceIconOnInsert } from '../../utils/replace-insert';
 
 const sizeOptions = [
 	{ label: __( 'Default' ), value: '' },
@@ -58,7 +59,7 @@ const sizeOptions = [
 	{ label: __( 'Huge' ), value: 'has-huge-icon-size' },
 ];
 
-export function SocialLinksEdit(props) {
+export function IconPickerEdit(props) {
 	const {
 		clientId,
 		attributes,
@@ -78,12 +79,12 @@ export function SocialLinksEdit(props) {
 		size,
 	} = attributes;
 
-	const { hasSocialIcons, hasSelectedChild } = useSelect(
+	const { hasIcons, hasSelectedChild } = useSelect(
 		( select ) => {
 			const { getBlockCount, hasSelectedInnerBlock } =
 				select( blockEditorStore );
 			return {
-				hasSocialIcons: getBlockCount( clientId ) > 0,
+				hasIcons: getBlockCount( clientId ) > 0,
 				hasSelectedChild: hasSelectedInnerBlock( clientId ),
 			};
 		},
@@ -127,22 +128,16 @@ export function SocialLinksEdit(props) {
 			iconBackgroundColor.color || iconBackgroundColorValue,
 	} );
 
-	console.log("hasSocialIcons || hasAnySelected", hasSocialIcons || hasAnySelected);
 	const blockProps = useBlockProps({ className });
-	console.log("blockProps", blockProps);
+	useReplaceIconOnInsert(clientId);
+
 	const innerBlocksProps = useInnerBlocksProps(blockProps, {
 		template: [
 			[ 'ziorwebdev/icon', { service: 'wordpress', url: '' } ],
 		],
-		templateLock: false,
-		orientation: attributes.layout?.orientation ?? 'horizontal',
-		__experimentalAppenderTagName: 'span',
-		renderAppender:
-			! hasSocialIcons || hasAnySelected
-				? InnerBlocks.ButtonBlockAppender
-				: undefined,
+		renderAppender: false
 	} );
-
+	console.log("innerBlocksProps", innerBlocksProps);
 	const colorSettings = [
 		{
 			// Use custom attribute as fallback to prevent loss of named color selection when
@@ -183,15 +178,13 @@ export function SocialLinksEdit(props) {
 
 	return (
 		<>
-            <BlockControls>
-                <ToolbarGroup>
-                    <ToolbarBlockInserter
-                        rootClientId={clientId}
-                        label="Add Social Icon"
-                        onSelectOrClose={() => console.log('Block inserted or inserter closed')}
-                    />
-                </ToolbarGroup>
-            </BlockControls>
+			<BlockControls>
+				<ToolbarBlockInserter
+					rootClientId={clientId}
+					label="Change Icon"
+					// onSelectOrClose={() => console.log('Block inserted or inserter closed')}
+				/>
+			</BlockControls>
 			<InspectorControls>
 				<ToolsPanel
 					label={ __( 'Settings' ) }
@@ -298,25 +291,6 @@ export function SocialLinksEdit(props) {
 				</InspectorControls>
 			) }
 			<span {...innerBlocksProps} />
-			{/* { showInserter && (
-				<Popover
-					className="my-icon-inserter"
-					onClose={ () => setShowInserter( false ) }
-					position="middle center"
-					focusOnMount="container"
-				>
-					<Inserter
-						rootClientId={ clientId }
-						isAppender={ false }
-						showInserterHelpPanel={ false }
-						onSelect={ ( block ) => {
-							// Handle selection of block/icon
-							console.log( 'Selected:', block );
-							setShowInserter( false );
-						} }
-					/>
-				</Popover>
-			)} */}
 		</>
 	);
 }
@@ -326,4 +300,4 @@ const iconColorAttributes = {
 	iconBackgroundColor: 'icon-background-color',
 };
 
-export default withColors( iconColorAttributes )( SocialLinksEdit );
+export default withColors( iconColorAttributes )( IconPickerEdit );

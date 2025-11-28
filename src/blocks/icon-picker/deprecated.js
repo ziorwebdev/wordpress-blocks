@@ -47,7 +47,7 @@ const migrateWithLayout = ( attributes ) => {
 	return newAttributes;
 };
 
-// Social Links block deprecations.
+// Icon block deprecations.
 const deprecated = [
 	// V1. Remove CSS variable use for colors.
 	{

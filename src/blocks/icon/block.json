@@ -4,11 +4,11 @@
 	"name": "ziorwebdev/icon",
 	"title": "Icon",
 	"category": "widgets",
+	"description": "Display an icon.",
+	"textdomain": "default",
 	"parent": [
 		"ziorwebdev/icon-picker"
 	],
-	"description": "Display an icon linking to a social profile or site.",
-	"textdomain": "default",
 	"attributes": {
 		"url": {
 			"type": "string",
