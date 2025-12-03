@@ -68,7 +68,7 @@ final class Load {
 		Blocks\Icon\Icon::get_instance();
 		// Icon Picker is static block, it does not need to be instantiated in PHP.
 		// Blocks\IconPicker\IconPicker::get_instance();
-		Blocks\IconPicker\IconList::get_instance();
+		Blocks\IconList\IconList::get_instance();
 	}
 
 	/**
