@@ -1,8 +1,7 @@
 import clsx from 'clsx';
-const { useBlockProps, InspectorControls, BlockControls } = wp.blockEditor;
 
+const { useBlockProps, InspectorControls } = wp.blockEditor;
 const {
-  ToolbarButton,
   TextControl,
   ExternalLink,
   __experimentalToolsPanel: ToolsPanel,

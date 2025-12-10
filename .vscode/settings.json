@@ -1,8 +1,8 @@
 {
-  // Prettier for JS/CSS/HTML
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
+	// Prettier for JS/CSS/HTML
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
 
 	"phpsab.allowedAutoRulesets": [
 		".phpcs.xml",
@@ -12,11 +12,12 @@
 		"phpcs.ruleset.xml",
 		"ruleset.xml"
 	],
-	"phpsab.executablePathCBF": "",
 	"[php]": {
-		"editor.defaultFormatter": "valeryanm.vscode-phpsab"
+		"editor.defaultFormatter": "valeryanm.vscode-phpsab",
+		"editor.formatOnSave": true
 	},
 	"phpsab.snifferMode": "onType",
+	"phpsab.executablePathCBF": "",
 	"phpsab.standard": "WordPress",
 	"phpsab.snifferEnable": false
 }
