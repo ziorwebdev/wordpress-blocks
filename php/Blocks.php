@@ -34,7 +34,6 @@ final class Blocks {
 
 	/**
 	 * Class constructor.
-	 * 
 	 */
 	public function __construct() {
 		Blocks\Icon\Block::get_instance();
